@@ -70,6 +70,7 @@ export class Speedtest extends (EventEmitter as new () => TypedEmitter<Speedtest
     if (this.runningTest) {
       return false;
     } else {
+      this.runningTest = true;
       this.emit('started');
       speedtest({
         ...this.config.speedtestOpts,
