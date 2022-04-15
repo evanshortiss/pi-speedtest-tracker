@@ -42,9 +42,10 @@ server
       }
     });
 
-    server.speedtest.on('fail', (err) =>
-      server.log.error('encountered an issue when executing speedtest', err)
-    );
+    server.speedtest.on('fail', (err) => {
+      server.log.error('encountered an issue when executing speedtest');
+      server.log.error(err as any);
+    });
   });
 
 server

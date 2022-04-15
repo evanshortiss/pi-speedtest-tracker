@@ -16,13 +16,16 @@ COPY . .
 RUN npm run build
 RUN npm prune --production
 
-FROM registry.access.redhat.com/ubi8/nodejs-16-minimal as run
+FROM node:16-alpine as run
 
 WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/.next/ .next/
 COPY --from=build /usr/src/app/dist/ ./dist
-COPY --from=build /usr/src/app/node_modules/ ./node_modules
+
+# The speedtest-net module requires write permissions to it's own folder. This
+# is because it stores the required speedtest binary there.
+COPY --chown=node:node --from=build /usr/src/app/node_modules/ ./node_modules
 
 EXPOSE 8080
 
