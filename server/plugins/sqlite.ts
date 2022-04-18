@@ -1,3 +1,8 @@
+/**
+ * TODO: refactor this so the sqlite specifics are separated from the fastify
+ * plugin specifics.
+ */
+
 import fp from 'fastify-plugin';
 import { FastifyInstance } from 'fastify';
 import sqlite3 from 'sqlite3';
@@ -54,7 +59,7 @@ async function fastifySqlite(
   opts: FastifySqliteOpts,
   next: (err?: Error) => void
 ) {
-  fastify.log.debug('initialising sqlite database plugin');
+  fastify.log.debug('initialising sqlite database plugin with opts: %j', opts);
 
   const db: Database<sqlite3.Database, sqlite3.Statement> = await open({
     filename: opts.filepath,

@@ -28,9 +28,9 @@ const _fetch = (...args: any[]) =>
   fetch(args[0], args[1]).then((res) => res.json());
 
 export default function Summary() {
-  const summary = useSWR<SummaryData, Error>('/api/summary', _fetch);
+  const summary = useSWR<SummaryData, Error>('/api/speedtest/summary', _fetch);
   const history = useSWR<NormalisedSpeedtestResult[], Error>(
-    '/api/history',
+    '/api/speedtest/history',
     _fetch
   );
 

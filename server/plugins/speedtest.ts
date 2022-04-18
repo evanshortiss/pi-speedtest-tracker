@@ -54,6 +54,7 @@ export class Speedtest extends (EventEmitter as new () => TypedEmitter<Speedtest
   }
 
   private scheduleNextTest(): void {
+    // TODO: cron tab support?
     const nextTs = new Date();
 
     nextTs.setHours(nextTs.getHours() + 1);

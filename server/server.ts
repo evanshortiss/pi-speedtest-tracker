@@ -5,7 +5,6 @@ import fastifySpeedtestSqlite from './plugins/sqlite';
 import fastifySpeedtest from './plugins/speedtest';
 import config from './config';
 import 'fastify-nextjs';
-import { Server } from 'http';
 
 const useDevMode = config.NODE_ENV === 'development';
 const server = fastify({
@@ -33,10 +32,11 @@ server
       server.log.info('a speedtest has started');
     });
 
-    server.speedtest.on('success', (record) => {
+    server.speedtest.on('success', async (record) => {
       try {
+        server.log.info('speedtest run finished');
         server.log.debug('speedtest result', record);
-        server.sqlite.writeTestResult(record);
+        await server.sqlite.writeTestResult(record);
       } catch (e) {
         server.log.error('failed to write speedtest to sqlite', e);
       }
@@ -61,15 +61,30 @@ server
     server.next('/*');
   });
 
+server.register(require('fastify-swagger'), {
+  routePrefix: '/swagger',
+  exposeRoute: true,
+  swagger: {
+    info: {
+      title: 'Speedtest Tracker API',
+      description: 'API for the Speedtest Tracker',
+      version: '0.1.0',
+    },
+    schemes: ['http'],
+    consumes: ['application/json'],
+    produces: ['application/json'],
+  },
+});
+
 server.get('/health', (req, res) => {
   res.send({
     status: 'ok',
     curtime: new Date().toJSON(),
-    uptime: `${process.uptime} seconds`,
+    uptime: `${process.uptime()} seconds`,
   });
 });
 
-server.post('/api/test', (req, reply) => {
+server.post('/api/speedtest/run', (req, reply) => {
   if (server.speedtest.run()) {
     reply.send('speedtest run scheduled');
   } else {
@@ -79,7 +94,7 @@ server.post('/api/test', (req, reply) => {
   }
 });
 
-server.get('/api/history', () => {
+server.get('/api/speedtest/history', () => {
   const date = new Date();
 
   date.setDate(date.getDate() - 28);
@@ -89,7 +104,7 @@ server.get('/api/history', () => {
 
 server.route({
   method: 'GET',
-  url: '/api/summary',
+  url: '/api/speedtest/summary',
   handler: async () => {
     const date = new Date();
 

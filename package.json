@@ -21,17 +21,18 @@
     "env-var": "^7.1.1",
     "fastify": "~3.9.2",
     "fastify-nextjs": "^7.2.0",
-    "speedtest-net": "^2.2.0",
-    "sqlite": "^4.0.23",
-    "sqlite3": "^5.0.2",
-    "typed-emitter": "^2.1.0",
+    "fastify-swagger": "^5.1.1",
+    "lodash.get": "^4.4.2",
     "next": "^12.1.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-ionicons": "^4.2.0",
     "react-vis": "^1.11.7",
+    "speedtest-net": "^2.2.0",
+    "sqlite": "^4.0.23",
+    "sqlite3": "^5.0.2",
     "styled-components": "^5.3.5",
-    "lodash.get": "^4.4.2"
+    "typed-emitter": "^2.1.0"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",

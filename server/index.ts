@@ -1,3 +1,4 @@
+import { readdirSync } from 'fs';
 import config from './config';
 import server from './server';
 
