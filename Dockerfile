@@ -16,7 +16,7 @@ COPY . .
 RUN npm run build
 RUN npm prune --production
 
-FROM node:16-alpine as run
+FROM node:16 as run
 
 WORKDIR /usr/src/app
 
