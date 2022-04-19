@@ -22,12 +22,12 @@ mkdir $STORAGE_DIR
 # Start a container, with the storage location mounted. The
 # SPEEEDTEST_ACCEPT_LICENSE and SPEEEDTEST_ACCEPT_GDPR variables
 # must be provided and set to "true"
-podman run --name speedtester -p 8080:8080 \
+docker run --name speedtester -p 8080:8080 \
 -v $STORAGE_DIR:"/var/speedtest-tracker/":z \
 -e DB_PATH="/var/speedtest-tracker/speedtest.sqlite.db" \
 -e SPEEEDTEST_ACCEPT_LICENSE=true \
 -e SPEEEDTEST_ACCEPT_GDPR=true \
-quay.io/evanshortiss/speedtest-tracker
+evanshortiss/speedtest-tracker
 ```
 
 ## HTTP API
