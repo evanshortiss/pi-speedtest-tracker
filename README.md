@@ -1,6 +1,6 @@
 # Speedtest Tracker
 
-Runs a speedtest every hour, and store the results in an SQLite database.
+Runs a speedtest every hour, and stores the results in an SQLite database.
 Also provides a UI to view a summary of test results.
 
 ![](/screenshots/speedtest-ui.png)
